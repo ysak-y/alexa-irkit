@@ -20,7 +20,7 @@ def default_handler(request):
 @alexa.request_handler("LaunchRequest")
 def launch_request_handler(request):
     ''' Handler for LaunchRequest '''
-    return alexa.create_response(message="Hello Welcome to My Recipes!")
+    return alexa.create_response(message="hello")
 
 @alexa.request_handler("SessionEndedRequest")
 def session_ended_request_handler(request):
