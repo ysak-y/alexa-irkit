@@ -27,13 +27,13 @@ def session_ended_request_handler(request):
     return alexa.create_response(message="Goodbye!")
 
 @alexa.intent_handler('SwitchAirConditionerIntent')
-def get_recipe_intent_handler(request):
+def switch_air_conditioner_intent_handler(request):
     client_key = os.environ['CLIENTKEY']
     device_id = os.environ['DEVICEID']
 
-    print('client_key id %s device_id is %s' % [client_key, device_id])
-    api = IntenetAPI()
+    print('client_key id %s device_id is %s' % (client_key, device_id))
+    api = InternetAPI()
 
-    result = api.messages.post(SWITCH_AIR_CONDITIONER_SIGNAL, client_key, device_id)
+    result = api.messages.post(SWITCH_AIR_CONDITIONER_SIGNAL['data'], client_key, device_id)
     print("result is %s" % str(result))
-    return alexa.create_response('Switch air conditioner')
+    return alexa.create_response('Switch air conditioner', end_session=True)
