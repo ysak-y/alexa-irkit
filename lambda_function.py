@@ -1,17 +1,13 @@
 # coding: utf-8
 
+import os
 from ask import alexa
 from constants import SWITCH_AIR_CONDITIONER_SIGNAL
-from irkit.api import internetAPI
+from irkit.api import InternetAPI
 
 def lambda_handler(request_obj, context=None):
 
-    client_key = os.environ['CLIENTKEY']
-    device_id = os.environ['DEVICEID']
-
     metadata = {
-        'client_key': client_key,
-        'device_id': device_id
             }
 
     return alexa.route_request(request_obj, metadata)
@@ -32,11 +28,12 @@ def session_ended_request_handler(request):
 
 @alexa.intent_handler('SwitchAirConditionerIntent')
 def get_recipe_intent_handler(request):
-    client_key = request.metadata['client_key']
-    device_id = request.metadata['device_id']
+    client_key = os.environ['CLIENTKEY']
+    device_id = os.environ['DEVICEID']
 
     print('client_key id %s device_id is %s' % [client_key, device_id])
     api = IntenetAPI()
 
     result = api.messages.post(SWITCH_AIR_CONDITIONER_SIGNAL, client_key, device_id)
     print("result is %s" % str(result))
+    return alexa.create_response('Switch air conditioner')
